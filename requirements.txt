@@ -2,3 +2,5 @@ streamlit
 plotly
 scipy
 chart_studio
+streamlit_folium
+folium
