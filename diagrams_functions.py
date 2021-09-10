@@ -62,7 +62,7 @@ def primary_page():
                                            'МИнБанк', 'УБРиР банк', 'Ситибанк']}
     df = pd.DataFrame(data=d)
     st.dataframe(df, 800, 2400)
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         st.subheader("Контакты:")
         st.markdown("<font size='+1'>@rukavitsa_a</font><br ><font size='+1'>@fedchenko_a</font>", unsafe_allow_html=True)
@@ -76,7 +76,7 @@ def diagram_average_for_country():
     """
     st.title("Средняя оценка по всем банкам")
     years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         from_year = st.selectbox('Выберите год начала:', years, index=0)
     with col2:
@@ -111,7 +111,7 @@ def diagram_average_for_regions_and_banks():
         ['0 Вся Россия']
     )
     years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         from_year_ = st.selectbox('Выберите год начала:', years, index=0)
     with col2:
@@ -145,7 +145,7 @@ def diagram_average_for_regions_and_banks():
                         "Показать все категории", "Показать только те категории, которые "
                                                   "существенно отличаются от итогового распределения внутри банка"))
 
-                    columns = st.beta_columns(len(options))
+                    columns = st.columns(len(options))
                     list_categories = []
                     if(len(options)>1):
                                 list_categories = d.tornadoChartBetweenBanks(options, region, [from_year_, to_year_])
@@ -320,7 +320,7 @@ def interactive_map():
                     df = pd.DataFrame(arr, columns=['lat', 'lon', 'link', 'string'])
                     m.add_child(
                         FastMarkerCluster(df[['lat', 'lon', 'link', 'string']].values.tolist(), callback=callback))
-                    container = st.beta_container()
+                    container = st.container()
 
                     with container:
                         folium_static(m, width=1350)
