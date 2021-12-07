@@ -144,9 +144,11 @@ def diagram_average_for_regions_and_banks(number_of_language):
                 if number_of_language == 1:
                     if options[0] == "All banks":
                         selected_banks = ["Среднее по всем банкам"]
-                    else:
+                    if len(options) > 1:
                         for elem in options:
-                            selected_banks.append(banks[banks_en.index(elem) + 1])
+                            if elem != "All banks":
+                                selected_banks.append(banks[banks_en.index(elem) + 1])
+
                     if region[0] == "0 Russia":
                         selected_regions = ["0 Вся Россия"]
                     else:
@@ -179,16 +181,22 @@ def diagram_average_for_regions_and_banks(number_of_language):
                         "Показать все категории", "Показать только те категории, которые "
                                                   "существенно отличаются от итогового распределения внутри банка"))
 
-                    columns = st.columns(len(options))
+                    columns = st.columns(len(selected_banks))
+                    print(selected_banks)
                     list_categories = []
-                    if(len(options)>1):
-                                list_categories = d.tornadoChartBetweenBanks(options, region, [from_year_, to_year_])
+                    if(len(selected_banks)>1):
+                                # list_categories = d.tornadoChartBetweenBanks(options, region, [from_year_, to_year_])
+                                list_categories = d.tornadoChartBetweenBanks(selected_banks, selected_regions, [from_year_, to_year_], number_of_language)
                     for i in range(len(columns)):
                         with columns[i]:
-                            chart = d.tornadoChartAverage(options[i], region, len(options), [from_year_, to_year_])
-                            chart1 = d.tornadoChartInBank(options[i], region, len(options), [from_year_, to_year_])
-                            if(len(options)>1):
-                                chart2 = d.tornadoChart(options[i], list_categories[i], len(options))
+                            #chart = d.tornadoChartAverage(options[i], region, len(options), [from_year_, to_year_])
+                            #chart1 = d.tornadoChartInBank(options[i], region, len(options), [from_year_, to_year_])
+                            chart = d.tornadoChartAverage(selected_banks[i], selected_regions, len(selected_banks), [from_year_, to_year_], number_of_language)
+                            chart1 = d.tornadoChartInBank(selected_banks[i], selected_regions, len(selected_banks), [from_year_, to_year_], number_of_language)
+                            if(len(selected_banks)>1):
+                                print("AAAAAAAAAA")
+                                print(options)
+                                chart2 = d.tornadoChart(selected_banks[i], list_categories[i], len(selected_banks), number_of_language)
                             if(version_of_tornado == "Показать все категории"):
                                 st.plotly_chart(chart)
                             if (version_of_tornado == "Показать только те категории, которые "

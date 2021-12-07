@@ -247,6 +247,7 @@ class Diagrams:
         fig = go.Figure()
         is_in_region = True
         has_zero = False
+
         for elem in selected_banks:
             if elem == 'Среднее по всем банкам' or elem == "All banks":
                 averageAll, \
@@ -274,7 +275,10 @@ class Diagrams:
 
             if is_in_region:
                 if number_of_language == 1:
-                    elem = banks_en[banks.index(elem) - 1]
+                    if elem != "Среднее по всем банкам":
+                        elem = banks_en[banks.index(elem) - 1]
+                    else:
+                        elem = "All banks"
                 avg_rate = round((averageConvenience + averageAtm + averageService_level +
                                   averageStaff + averageProducts_services + averageRemote_service) / 6, 2)
                 fig.add_trace(go.Scatterpolar(
@@ -456,7 +460,7 @@ class Diagrams:
                 [resultPositive/result, resultNegative/result],
             ]
 
-    def tornadoChart(self, bankName: str, list_categories: list, count: int):
+    def tornadoChart(self, bankName: str, list_categories: list, count: int, number_of_language: int):
         """
         Визуализация диаграммы в формате "торнадо" ("бабочка").
         bankName: str -- название банка
@@ -467,11 +471,16 @@ class Diagrams:
         return:
         fig : plotly.graph_objects.Figure -- построенная диаграмма
         """
-        short_categories = ['Итог', 'УО', 'ATM', 'УC', 'П', 'ПиУ', 'ДКО']
+        short_categories = ['Итог', 'УО', 'ATM', 'УC', 'П', 'ПиУ', 'ДКО'] if number_of_language == 0  \
+            else ['Total', "CotO", "ATM", "LoS", "S", "P&S", "RSC"]
         chart_studio.tools.set_credentials_file(username='fedchenko.anastasiia', api_key='nSu1PDGAHBUXTnDTK8FB')
         convenience, atm, service, staff, products, remote, result = list_categories
+        if bankName == "Среднее по всем банкам" and number_of_language == 1:
+            bankName = "All banks"
+        else:
+            bankName = bankName if number_of_language == 0 else banks_en[banks.index(bankName) - 1]
         trace1 = {
-            "name": "Негативные",
+            "name": LANGUAGES["tornado"][0][number_of_language],
             "type": "bar",
             "x": [result[1], convenience[1], atm[1], service[1], staff[1], products[1], remote[1]],
             "y": [1, 2, 3, 4, 5, 6, 7],
@@ -479,7 +488,7 @@ class Diagrams:
             "orientation": "h"
         }
         trace2 = {
-            "name": "Позитивные",
+            "name": LANGUAGES["tornado"][1][number_of_language],
             "type": "bar",
             "x": [result[0], convenience[0], atm[0], service[0], staff[0], products[0], remote[0]],
             "y": [1, 2, 3, 4, 5, 6, 7],
@@ -530,7 +539,7 @@ class Diagrams:
         fig = go.Figure(data=data, layout=layout)
         return fig
 
-    def tornadoChartAverage(self, bankName: str, regions: list, count: int, years: list):
+    def tornadoChartAverage(self, bankName: str, regions: list, count: int, years: list, number_of_language: int):
         """
         Сбор данных для диаграммы в формате "торнадо" ("бабочка") для определенного банка по выбранным регионам.
         bankName: str -- название банка
@@ -543,9 +552,9 @@ class Diagrams:
         """
 
         list_categories = self.getPositiveAndNegativeShareForCategories(bankName, regions, True, years)
-        return self.tornadoChart(bankName, list_categories, count)
+        return self.tornadoChart(bankName, list_categories, count, number_of_language)
 
-    def tornadoChartInBank(self, bankName: str, regions: list, count: int, years: list):
+    def tornadoChartInBank(self, bankName: str, regions: list, count: int, years: list, number_of_language: int):
         """
         Сбор данных для диаграммы в формате "торнадо" ("бабочка") для определенного банка по выбранным регионам
         и прореживание(сравнивание со средним по всем категориям).
@@ -574,9 +583,9 @@ class Diagrams:
                            [list_of_categories[4][2], list_of_categories[4][3]], \
                            [list_of_categories[5][2], list_of_categories[5][3]], \
                            [result[0]*100, result[1]*100]]
-        return self.tornadoChart(bankName, list_categories, count)
+        return self.tornadoChart(bankName, list_categories, count, number_of_language)
 
-    def tornadoChartBetweenBanks(self, bankNames: list, regions: list, years: list):
+    def tornadoChartBetweenBanks(self, bankNames: list, regions: list, years: list, number_of_language: int):
         """
         Сбор данных для диаграммы в формате "торнадо" ("бабочка") для определенного банка по выбранным регионам
         и прореживание (сравнивание по каждой из категории с каждым банком).

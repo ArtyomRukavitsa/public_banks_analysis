@@ -313,5 +313,10 @@ LANGUAGES = {
         10: ["Персонал", "Staff"],
         11: ["Продукты и услуги", "Products and services"],
         12: ["Дист. обслуживание", "Remote service channels"],
+        13: []
+    },
+    "tornado": {
+        0: ["Негативные", "Negative"],
+        1: ["Позитивные", "Positive"]
     }
 }

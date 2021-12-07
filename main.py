@@ -1,6 +1,6 @@
 import streamlit as st
 from diagrams_functions import *
-from const_for_main import LANGUAGES
+# from const_for_main import LANGUAGES
 
 
 st.set_page_config(layout="wide")
