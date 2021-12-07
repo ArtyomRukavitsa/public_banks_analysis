@@ -170,16 +170,14 @@ def diagram_average_for_regions_and_banks(number_of_language):
                         st.write('*Нулевые значения означают отсутствие отзывов по данной категории/оси.*')
                     st.subheader('Диаграмма сравнения процентного соотношения отзывов с положительной и '
                                  'отрицательной оценками для каждого выбранного банка по категориям')
-                    st.subheader('*Положительные — оценка 4 или 5*')
-                    st.subheader('*Отрицательные — оценка 1 или 2*')
+                    st.subheader(LANGUAGES["average_rating"][13][number_of_language])
+                    st.subheader(LANGUAGES["average_rating"][14][number_of_language])
                     if(len(options)>1):
-                        version_of_tornado = st.radio('Выберите тип диаграммы "торнадо"', ("Показать все категории", "Показать только те категории, которые "
-                        "существенно отличаются от итогового распределения внутри банка", "Показать только те, которые "
-                        "сильно отличают выбранные банки"))
+                        version_of_tornado = st.radio(LANGUAGES["average_rating"][15][number_of_language],
+                                                      LANGUAGES["average_rating"][16][number_of_language])
                     else:
-                        version_of_tornado = st.radio('Выберите тип диаграммы "торнадо"', (
-                        "Показать все категории", "Показать только те категории, которые "
-                                                  "существенно отличаются от итогового распределения внутри банка"))
+                        version_of_tornado = st.radio(LANGUAGES["average_rating"][15][number_of_language],
+                                                      LANGUAGES["average_rating"][17][number_of_language])
 
                     columns = st.columns(len(selected_banks))
                     print(selected_banks)
@@ -197,13 +195,11 @@ def diagram_average_for_regions_and_banks(number_of_language):
                                 print("AAAAAAAAAA")
                                 print(options)
                                 chart2 = d.tornadoChart(selected_banks[i], list_categories[i], len(selected_banks), number_of_language)
-                            if(version_of_tornado == "Показать все категории"):
+                            if(version_of_tornado == LANGUAGES["average_rating"][16][number_of_language][0]):
                                 st.plotly_chart(chart)
-                            if (version_of_tornado == "Показать только те категории, которые "
-                                                  "существенно отличаются от итогового распределения внутри банка"):
+                            if (version_of_tornado == LANGUAGES["average_rating"][16][number_of_language][1]):
                                 st.plotly_chart(chart1)
-                            if(len(options)>1 and version_of_tornado == "Показать только те, которые сильно отличают "
-                                                                        "выбранные банки"):
+                            if(len(options)>1 and version_of_tornado == LANGUAGES["average_rating"][16][number_of_language][2]):
                                 st.plotly_chart(chart2)
 
                     if has_zero:
