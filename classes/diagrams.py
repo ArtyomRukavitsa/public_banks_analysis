@@ -227,13 +227,13 @@ class Diagrams:
         return [averageConvenience, averageAtm, averageService_level,
                 averageStaff, averageProducts_services, averageRemote_service]
 
-    def radarChart(self, selected_banks: list, selected_regions: list, years: list):
+    def radarChart(self, selected_banks: list, selected_regions: list, years: list, number_of_language: int):
         """
         Построение диаграммы в формате "паутина", которая позволяет сравнить различные банки по всем категориям
         selected_banks: list -- идентификаторы выбранных пользователем банков
         selected_regions: list -- идентификаторы выбранных пользователем регионов
         years: list -- период, за который нужно производить визуализацию
-
+        number_of_language: int -- индентификатор языка интерфеса
         return:
         [fig, has_zero]
 
@@ -243,11 +243,12 @@ class Diagrams:
                             False -- на все категории есть отзывы
                             Данный флаг нужен для отображения информации для пользователя о наличии нулевых категорий.
         """
+        categories_in_chart = categories if number_of_language == 0 else categories_en
         fig = go.Figure()
         is_in_region = True
         has_zero = False
         for elem in selected_banks:
-            if elem == 'Среднее по всем банкам':
+            if elem == 'Среднее по всем банкам' or elem == "All banks":
                 averageAll, \
                 averageConvenience, \
                 averageAtm, \
@@ -272,6 +273,8 @@ class Diagrams:
                         has_zero = True
 
             if is_in_region:
+                if number_of_language == 1:
+                    elem = banks_en[banks.index(elem) - 1]
                 avg_rate = round((averageConvenience + averageAtm + averageService_level +
                                   averageStaff + averageProducts_services + averageRemote_service) / 6, 2)
                 fig.add_trace(go.Scatterpolar(
@@ -284,7 +287,7 @@ class Diagrams:
                         averageRemote_service,
                         averageConvenience
                     ],
-                    theta=categories[1:] + ['Удобство офиса'],
+                    theta=categories_in_chart[1:] + [categories_in_chart[1]],
                     # fill='toself',
                     name=elem + f" ({avg_rate})",
                     # fillcolor=colours[elem][0],

@@ -11,100 +11,59 @@ import streamlit.components.v1 as components
 d = Diagrams()
 
 
-def primary_page():
-    st.title("Анализ отзывов клиентов на банковские каналы обслуживания и продукты/услуги")
+def primary_page(number_of_language):
+    st.title(LANGUAGES["primary_page"][0][number_of_language])
     st.title('')
     #st.header("Что это за проект?")
-    st.subheader("Наш сайт позволяет сравнить любой банк с рынком в среднем и с лучшими "
-                "игроками рынка, определить области улучшения и дальнейшего развития "
-                "каналов обслуживания, продуктов и услуг по определенным критериям: ")
-    st.markdown("<font size='+1'>•	удобство офиса, </font>"
-                "<br ><font size='+1'>•	банкоматы, </font>"
-                "<br ><font size='+1'>•	касса, </font>"
-                "<br ><font size='+1'>•	уровень сервиса, </font>"
-                "<br ><font size='+1'>•	персонал, </font>"
-                "<br ><font size='+1'>• продукты и услуги, </font>"
-                "<br ><font size='+1'>•	дистанционное обслуживание. </font>", unsafe_allow_html=True)
-    st.subheader("В качестве входных данных мы используем отзывы с картографического "
-                "сервиса Яндекс.Карты (www.yandex.ru/maps) на банковские отделения.")
+    st.subheader(LANGUAGES["primary_page"][1][number_of_language])
+    st.markdown(f"<font size='+1'>•	{LANGUAGES['primary_page'][2][number_of_language]}, </font>"
+                f"<br ><font size='+1'>• {LANGUAGES['primary_page'][3][number_of_language]}, </font>"
+                f"<br ><font size='+1'>• {LANGUAGES['primary_page'][4][number_of_language]}, </font>"
+                f"<br ><font size='+1'>• {LANGUAGES['primary_page'][5][number_of_language]}, </font>"
+                f"<br ><font size='+1'>• {LANGUAGES['primary_page'][6][number_of_language]}, </font>"
+                f"<br ><font size='+1'>• {LANGUAGES['primary_page'][7][number_of_language]} </font>", unsafe_allow_html=True)
+    st.subheader(LANGUAGES['primary_page'][8][number_of_language])
     st.subheader("")
-    st.subheader("На нашем сайте есть следующие страницы:")
-    with st.expander("Средняя оценка по всем банкам"):
+    st.subheader(LANGUAGES['primary_page'][9][number_of_language])
+    with st.expander(LANGUAGES['primary_page'][10][number_of_language]):
         st.markdown(
-            "<p align='justify'style='text-indent: 25px;'><font size='+1'>Диаграмма средней оценки по всем банкам строится на основе "
-            "оценок всех отзывов на отделения всех банков в выбранных регионах за выбранное время. "
-            "Каждая строчка данной диаграммы соответствует определённой категории, также самая "
-            "нижняя строчка — это средняя оценка по всем категория. Категории и среднее отличаются "
-            "цветами: категории отмечены жёлтым, общее среднее — красным.</font></p>", unsafe_allow_html=True)
+            f"<p align='justify'style='text-indent: 25px;'><font size='+1'>"
+            f"{LANGUAGES['primary_page'][11][number_of_language]}"
+            f"</font></p>", unsafe_allow_html=True)
 
-    with st.expander("Средние оценки категорий по банкам и регионам"):
+    with st.expander(LANGUAGES['primary_page'][12][number_of_language]):
         st.markdown(
-            "<p align='justify'style='text-indent: 25px;'><font size='+1'>Диаграмма представлена в формате паутина. "
-            "Шесть лучей, исходящих из одной точки, соответствуют шести категориям. Чем ближе к центру, "
-            "тем хуже оценка. И наоборот, чем дальше, тем лучше. Возможен выбор банков, регионов и периода времени, "
-            "по которым будет проведён анализ.</font></p>", unsafe_allow_html=True)
+            f"<p align='justify'style='text-indent: 25px;'><font size='+1'>"
+            f"{LANGUAGES['primary_page'][13][number_of_language]}"
+            f"</font></p>", unsafe_allow_html=True)
         st.markdown(
-            "<p align='justify'style='text-indent: 25px;'><font size='+1'>Для предоставления более полного анализа мы решили сделать "
-            "диаграммы на основе тех же данных, но показывать не среднюю оценку по категориям, а процентное соотношение "
-            "отзывов с положительной и отрицательными оценками по категориям для каждого "
-            "выбранного банка. Период времени, выбранный в “паутинке”, также используется при "
-            "выборке данных для данной диаграммы. В качестве положительных оценок мы "
-            "рассматриваем только 4 и 5, отрицательных — 1 и 2. Отзывы с оценкой 3 не анализируются.</font></p>",
+            f"<p align='justify'style='text-indent: 25px;'><font size='+1'>"
+            f"{LANGUAGES['primary_page'][14][number_of_language]}"
+            f"</font></p>",
             unsafe_allow_html=True)
-    with st.expander("Важные слова для различных категорий"):
+    with st.expander(LANGUAGES['primary_page'][15][number_of_language]):
         st.markdown(
-            "<p align='justify'style='text-indent: 25px;'><font size='+1'>На самой диаграмме представлены отсортированные по "
-            "важности десять слов (именно на данных о важности строится график). Важность всех слов в сумме "
-            "составляет единицу. Пользователь имеет возможность выбрать из элементов выпадающего списка ту категорию, "
-            "которая будет ему интересна.</font></p>", unsafe_allow_html=True)
-    with st.expander("Интерактивная карта банковских отделений"):
+            f"<p align='justify'style='text-indent: 25px;'>"
+            f"{LANGUAGES['primary_page'][16][number_of_language]}"
+            f"<font size='+1'></font></p>", unsafe_allow_html=True)
+    with st.expander(LANGUAGES['primary_page'][17][number_of_language]):
         st.markdown(
-            "<p align='justify'style='text-indent: 25px;'><font size='+1'>Пользователю предлагается возможность отобразить конкретные "
-            "банки по конкретным регионам, либо сразу же все банки по регионам. При нажатии на конкретный маркер "
-            "отображается информация, по которой можно сделать выбор в пользу того и иного отделения</font></p>",
+            f"<p align='justify'style='text-indent: 25px;'>"
+            f"{LANGUAGES['primary_page'][18][number_of_language]}"
+            f"<font size='+1'></font></p>",
             unsafe_allow_html=True)
-    #st.subheader("Средняя оценка по всем банкам")#мб добавить URL
-    # st.markdown("<p align='justify'style='text-indent: 25px;'><font size='+1'>Диаграмма средней оценки по всем банкам строится на основе "
-    #             "оценок всех отзывов на отделения всех банков в выбранных регионах за выбранное время. "
-    #             "Каждая строчка данной диаграммы соответствует определённой категории, также самая "
-    #             "нижняя строчка — это средняя оценка по всем категория. Категории и среднее отличаются "
-    #             "цветами: категории отмечены жёлтым, общее среднее — красным.</font></p>", unsafe_allow_html=True)
-    # st.subheader("Средние оценки категорий по банкам и регионам")
-    # st.markdown("<p align='justify'style='text-indent: 25px;'><font size='+1'>Эта диаграмма представлена в формате паутинки. "
-    #             "Шесть лучей, исходящих из одной точки, соответствуют шести категориям. Чем ближе к центру, "
-    #             "тем хуже оценка. И наоборот, чем дальше, тем лучше. Возможен выбор банков, регионов и периода времени, "
-    #             "по которым будет проведён анализ.</font></p>", unsafe_allow_html=True)
-    # st.markdown("<p align='justify'style='text-indent: 25px;'><font size='+1'>Для предоставления более полного анализа мы решили сделать "
-    #             "диаграммы на основе тех же данных, но показывать не среднюю оценку по категориям, а процентное соотношение "
-    #             "отзывов с положительной и отрицательными оценками по категориям для каждого "
-    #             "выбранного банка. Период времени, выбранный в “паутинке”, также используется при "
-    #             "выборке данных для данной диаграммы. В качестве положительных оценок мы "
-    #             "рассматриваем только 4 и 5, отрицательных — 1 и 2. Отзывы с оценкой 3 не анализируются.</font></p>", unsafe_allow_html=True)
-    # st.subheader("Важные слова для различных категорий")
-    # st.markdown("<p align='justify'style='text-indent: 25px;'><font size='+1'>На самой диаграмме представлены отсортированные по "
-    #             "важности десять слов (именно на данных о важности строится график). Важность всех слов в сумме "
-    #             "составляет единицу. Пользователь имеет возможность выбрать из элементов выпадающего списка ту категорию, "
-    #             "которая будет ему интересна.</font></p>", unsafe_allow_html=True)
-    # st.subheader("Интерактивная карта банковских отделений")
-    # st.markdown("<p align='justify'style='text-indent: 25px;'><font size='+1'>Пользователю предлагается возможность отобразить конкретные "
-    #             "банки по конкретным регионам, либо сразу же все банки по регионам. При нажатии на конкретный маркер "
-    #             "отображается информация, по которой можно сделать выбор в пользу того и иного отделения</font></p>", unsafe_allow_html=True)
     st.header("")
-    st.header("Банки, которые мы анализируем:")
-    d   = {' ': ['Сбербанк', 'Банк ВТБ', 'Альфа Банк', 'Газпромбанк', 'Россельхозбанк', 'Почта Банк',
-                                           'Банк Открытие', 'Росбанк', 'Совкомбанк', 'Райффайзенбанк', 'Промсвязьбанк', 'Банк Хоум Кредит',
-                                           'Банк ДОМ.РФ', 'Уралсиб', 'ЮниКредит', 'Сетелем Банк', 'Русфинанс Банк', 'Ренессанс Кредит',
-                                           'Московский кредитный банк', 'Банк Санкт-Петербург', 'СМП Банк',
-                                           'МИБ', 'УБРиР', 'Ситибанк']}
+    st.header(LANGUAGES['primary_page'][19][number_of_language])
+    d = {' ': LANGUAGES['primary_page'][20][number_of_language]}
     df = pd.DataFrame(data=d)
     st.dataframe(df, 800, 2400)
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Контакты (Telegram):")
+        st.subheader(LANGUAGES['primary_page'][21][number_of_language])
         st.markdown("<font size='+1'>@rukavitsa_a</font><br ><font size='+1'>@fedchenko_a</font>", unsafe_allow_html=True)
         st.markdown("", unsafe_allow_html=True)
     with col2:
-        st.subheader("Проект выполнен по заказу М.В.Чамрова.")
+        st.subheader(LANGUAGES['primary_page'][22][number_of_language])
 
     components.html(
         f"""
@@ -115,7 +74,7 @@ def primary_page():
         height=0
     )
 
-def diagram_average_for_country():
+def diagram_average_for_country(number_of_language):
     """
     Построение диаграммы средних оценок для всех банков и всех регионов с выбором промежутка времени.
     """
@@ -134,7 +93,7 @@ def diagram_average_for_country():
         st.plotly_chart(d.horizontalChartAverage([from_year, to_year]), use_container_width=True)
 
 
-def diagram_average_for_regions_and_banks():
+def diagram_average_for_regions_and_banks(number_of_language):
     """
     1) Диаграмма в формате "паутина" для определенных банков и определенных регионов с выбором промежутка времени
     2) Диаграмма в формате "торнадо" для определенных банков и определенных регионов с выбором промежутка времени
@@ -143,24 +102,35 @@ def diagram_average_for_regions_and_banks():
     4) Диаграмма в формате "торнадо" с применением критерия согласия Пирсона, к-ый позволяет убрать распределения
         положительных и отрицательных отзывов в банке, схожие с распределениями в категориях с другими банками
     """
-    st.title('Средние оценки категорий по банкам и регионам')
+    st.title(LANGUAGES['average_rating'][0][number_of_language])
+
+    array_banks = banks[1:] if number_of_language == 0 else banks_en
+
     options = st.multiselect(
-        'Выберите банки',
-        banks,
-        ['Среднее по всем банкам']
+        LANGUAGES['average_rating'][1][number_of_language],
+        [LANGUAGES["average_rating"][2][number_of_language]] + array_banks,
+        [LANGUAGES["average_rating"][2][number_of_language]]
     )
 
-    region = st.multiselect(
-        'Выберите регионы',
-        regions,
-        ['0 Вся Россия']
-    )
+    if number_of_language == 0:
+        region = st.multiselect(
+            LANGUAGES["average_rating"][3][number_of_language],
+            regions,
+            ['0 Вся Россия']
+        )
+    else:
+        region = st.multiselect(
+            LANGUAGES["average_rating"][3][number_of_language],
+            regions_en,
+            ['0 Russia']
+        )
+
     years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     col1, col2 = st.columns(2)
     with col1:
-        from_year_ = st.selectbox('Выберите год начала:', years, index=0)
+        from_year_ = st.selectbox(LANGUAGES["average_rating"][5][number_of_language], years, index=0)
     with col2:
-        to_year_ = st.selectbox('Выберите год окончания:', years, index=(len(years) - 1))
+        to_year_ = st.selectbox(LANGUAGES["average_rating"][6][number_of_language], years, index=(len(years) - 1))
 
     if from_year_ > to_year_:
         st.write('Год начала не может быть меньше года конца')
@@ -169,7 +139,26 @@ def diagram_average_for_regions_and_banks():
             if len(options) >= 5:
                 st.write("Для удобства отображения данных убедительная просьба не выбирать больше четырёх банков")
             else:
-                result = d.radarChart(options, region, [from_year_, to_year_])
+                selected_regions = []
+                selected_banks = []
+                if number_of_language == 1:
+                    if options[0] == "All banks":
+                        selected_banks = ["Среднее по всем банкам"]
+                    else:
+                        for elem in options:
+                            selected_banks.append(banks[banks_en.index(elem) + 1])
+                    if region[0] == "0 Russia":
+                        selected_regions = ["0 Вся Россия"]
+                    else:
+                        for elem in region:
+                            selected_regions.append(regions[regions_en.index(elem) + 1])
+
+                else:
+                    selected_banks = options.copy()
+                    selected_regions = region.copy()
+
+                #print(selected_banks, selected_regions)
+                result = d.radarChart(selected_banks, selected_regions, [from_year_, to_year_], number_of_language)
                 if result:
                     result_diagram, has_zero = result
                     # st.write('Средние оценки категорий по банкам и регионам')
@@ -217,23 +206,34 @@ def diagram_average_for_regions_and_banks():
             st.write('Выберите банки и регионы!')
 
 
-def interactive_map():
+def interactive_map(number_of_language):
     """
     Интерактивная карта отделений.
     """
-    from const_for_main import banks
-    st.title("Интерактивная карта банковских отделений страны")
-    options = st.multiselect(
-        'Выберите банки',
-        ['Все банки'] + banks[1:],
-        ['Все банки']
-    )
+    from const_for_main import banks, banks_en
+    st.title(LANGUAGES["interactive_map"][0][number_of_language])
 
-    region = st.multiselect(
-        'Выберите регионы',
-        regions,
-        ['0 Вся Россия']
+    array_banks = banks[1:] if number_of_language == 0 else banks_en
+
+    options = st.multiselect(
+        LANGUAGES["interactive_map"][1][number_of_language],
+        [LANGUAGES["interactive_map"][2][number_of_language]] + array_banks,
+        [LANGUAGES["interactive_map"][2][number_of_language]]
     )
+    print(LANGUAGES["interactive_map"][4][number_of_language])
+
+    if number_of_language == 0:
+        region = st.multiselect(
+            LANGUAGES["interactive_map"][3][number_of_language],
+            regions,
+            ['0 Вся Россия']
+        )
+    else:
+        region = st.multiselect(
+            LANGUAGES["interactive_map"][3][number_of_language],
+            regions_en,
+            ['0 Russia']
+        )
 
     callback = ("function (row) {"
                 "var icon = L.icon({iconUrl: row[2], iconSize: [24, 24], iconAnchor: [16, 37], popupAnchor: [0, -28]});"
@@ -262,22 +262,22 @@ def interactive_map():
         st.write('Выберите регионы и банки!')
 
     else:
-        with st.spinner("Подождите, пожалуйста"):
-            if 'Все банки' in options and len(options) != 1:
+        with st.spinner(LANGUAGES["interactive_map"][16][number_of_language]):
+            if (LANGUAGES["interactive_map"][2][number_of_language] in options) and len(options) != 1:
                 st.write('Выберите "Все банки" либо конкретные банки!')
-            elif '0 Вся Россия' in region and len(region) != 1:
+            elif ('0 Вся Россия' in region or '0 Russia' in options) and len(region) != 1:
                 st.write('Выберите "0 Вся Россия" либо конкретные регионы!')
             else:
                 for option in options:
-                    if option == 'Все банки':
+                    if option == LANGUAGES["interactive_map"][2][number_of_language]:
                         selected_id_banks.append(0)
                         break
                     for i in range(len(banks)):
-                        if option == banks[i][1]:
+                        if option == banks[i][1] or option == banks[i][2]:
                             selected_id_banks.append(i + 1)
 
                 for reg in region:
-                    if reg == '0 Вся Россия':
+                    if reg in [regions[0], regions_en[0]]:
                         selected_id_regions.append(0)
                         location = [63.391425, 59.844655]
                         zoom_start = 4
@@ -287,77 +287,88 @@ def interactive_map():
                 has_markers = False
                 con = sqlite3.connect(CONNECTION)
                 cur = con.cursor()
+                print(selected_id_banks)
                 for address in addresses:
-                    if (address[2] in selected_id_banks or selected_id_banks[0] == 0) and \
-                            (selected_id_regions[0] == 0 or address[3] in selected_id_regions) and not (address[7] is None):
-                        bankName = banks[int(address[2]) - 1][1]
-                        add = address[1]
-                        if address[7] != 0:
-                            avg_rate = f"Средняя оценка: {address[7]}"
+                    address_rus = address[1]
+                    address_eng = address[2]
+                    id_bank = address[3]
+                    id_region = address[4]
+                    latitude = address[5]
+                    longitude = address[6]
+                    if (id_bank in selected_id_banks or selected_id_banks[0] == 0) and \
+                            (selected_id_regions[0] == 0 or id_region in selected_id_regions) and not (address[-1] is None):
+                        if number_of_language == 0:
+                            bankName = banks[id_bank - 1][1]
+                            add = address_rus
+                        else:
+                            bankName = banks[id_bank - 1][2]
+                            add = address_eng
+                        if address[-1] != 0:
+                            avg_rate = f"{LANGUAGES['interactive_map'][5][number_of_language]}: {address[7]}"
                             other_marks = list(cur.execute("SELECT "
                                                            "avg_c1, avg_c2, avg_c3, avg_c4, avg_c5, avg_c6,"
                                                            "per_c1, per_c2, per_c3, per_c4, per_c5, per_c6,"
                                                            "count "
                                                            "FROM addresses "
                                                            "WHERE id=?", [address[0]]).fetchone())
-                            avg_rate += f"<br>Количество отзывов: {other_marks[12]}"
+                            avg_rate += f"<br>{LANGUAGES['interactive_map'][6][number_of_language]}: {other_marks[12]}"
                             for i in range(6):
                                 if other_marks[i] == 0:
-                                    other_marks[i] = "нет отзывов"
+                                    other_marks[i] = LANGUAGES['interactive_map'][17][number_of_language]
                             for i in range(6):
                                 if other_marks[6 + i] == 0:
                                     other_marks[6 + i] = "0"
-                            avg_rate += f"<br><br>Оценки по категориям:<br>" \
+                            avg_rate += f"<br><br>{LANGUAGES['interactive_map'][7][number_of_language]}:<br>" \
                                         f"<table width='100%' border='1'>" \
                                         f"<tr>" \
-                                        f"<th> Категория </th>" \
-                                        f"<th> Средняя оценка </th>" \
-                                        f"<th> % отзывов </th>" \
+                                        f"<th> {LANGUAGES['interactive_map'][14][number_of_language]} </th>" \
+                                        f"<th> {LANGUAGES['interactive_map'][5][number_of_language]} </th>" \
+                                        f"<th> {LANGUAGES['interactive_map'][15][number_of_language]} </th>" \
                                         f"</tr>" \
                                         f"<tr>" \
-                                        f"<td> Удобство офиса </td>" \
+                                        f"<td> {LANGUAGES['interactive_map'][8][number_of_language]} </td>" \
                                         f"<td> {other_marks[0]} </td>" \
                                         f"<td> {other_marks[6]}% </td>" \
                                         f"</tr>" \
                                         f"<tr>" \
-                                        f"<td> Банкоматы </td>" \
+                                        f"<td> {LANGUAGES['interactive_map'][9][number_of_language]} </td>" \
                                         f"<td> {other_marks[1]} </td>" \
                                         f"<td> {other_marks[7]}% </td>" \
                                         f"</tr>" \
                                         f"<tr>" \
-                                        f"<td> Уровень сервиса </td>" \
+                                        f"<td> {LANGUAGES['interactive_map'][10][number_of_language]} </td>" \
                                         f"<td> {other_marks[2]} </td>" \
                                         f"<td> {other_marks[8]}% </td>" \
                                         f"</tr>" \
                                         f"<tr>" \
-                                        f"<td> Персонал </td>" \
+                                        f"<td> {LANGUAGES['interactive_map'][11][number_of_language]} </td>" \
                                         f"<td> {other_marks[3]} </td>" \
                                         f"<td> {other_marks[9]}% </td>" \
                                         f"</tr>" \
                                         f"<tr>" \
-                                        f"<td> Продукты и услуги </td>" \
+                                        f"<td> {LANGUAGES['interactive_map'][12][number_of_language]} </td>" \
                                         f"<td> {other_marks[4]} </td>" \
                                         f"<td> {other_marks[10]}% </td>" \
                                         f"</tr>" \
                                         f"<tr>" \
-                                        f"<td> Дист. каналы обслуживания </td>" \
+                                        f"<td> {LANGUAGES['interactive_map'][13][number_of_language]} </td>" \
                                         f"<td> {other_marks[5]} </td>" \
                                         f"<td> {other_marks[11]}% </td>" \
                                         f"</tr>" \
                                         f"</table>" \
 
-                            print(other_marks)
+                            #print(other_marks)
                         else:
                             avg_rate = "<b>Оценок нет.<b>"
                         string = f"{bankName}, {add}.<br>{avg_rate}"
                         arr.append([
-                            float(address[4]),
-                            float(address[5]),
-                            links[int(address[2])],
+                            latitude,
+                            longitude,
+                            links[id_bank],
                             string
                         ])
                         if not location:
-                            location = [float(address[4]), float(address[5])]
+                            location = [latitude, longitude]
                             zoom_start = 5
                         has_markers = True
                 if has_markers:
@@ -375,7 +386,7 @@ def interactive_map():
                 con.close()
 
 
-def important_words():
+def important_words(number_of_language):
     """
     Диаграмма "Важные слова по категориям"
     """
