@@ -394,11 +394,11 @@ def important_words(number_of_language):
     """
     Диаграмма "Важные слова по категориям"
     """
-    st.title("Важные слова для различных категорий")
-    choices = categories[1:]
-    category = st.selectbox('Выберите категорию:', choices, index=0)
+    st.title(LANGUAGES['imp_words'][0][number_of_language])
+    choices = categories[1:] if number_of_language == 0 else categories_en[1:]
+    imp = important_words_for_each_category if number_of_language == 0 else important_words_for_each_category_en
+    category = st.selectbox(LANGUAGES['imp_words'][1][number_of_language], choices, index=0)
     i = choices.index(category)
     d = Diagrams()
-    st.plotly_chart(d.important_words_and_coefs(important_words_for_each_category[i][0], \
-                                                important_words_for_each_category[i][1]), use_container_width=True)
+    st.plotly_chart(d.important_words_and_coefs(imp[i][0], imp[i][1]), use_container_width=True)
 

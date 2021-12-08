@@ -570,6 +570,7 @@ class Diagrams:
         convenience, atm, service, staff, products, remote, result = \
             self.getPositiveAndNegativeShareForCategories(bankName, regions, False, years)
         list_of_categories = [convenience, atm, service, staff, products, remote]
+        print(list_of_categories)
         for category in list_of_categories:
             if not (category[0]==0 or category[1]==0):
                 if (chi2_contingency([[category[0], category[1]],
@@ -583,6 +584,7 @@ class Diagrams:
                            [list_of_categories[4][2], list_of_categories[4][3]], \
                            [list_of_categories[5][2], list_of_categories[5][3]], \
                            [result[0]*100, result[1]*100]]
+        print(list_of_categories)
         return self.tornadoChart(bankName, list_categories, count, number_of_language)
 
     def tornadoChartBetweenBanks(self, bankNames: list, regions: list, years: list, number_of_language: int):
