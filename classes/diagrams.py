@@ -104,7 +104,7 @@ class Diagrams:
                 averageConvenience, averageAtm,
                 averageService_level, averageStaff, averageProducts_services, averageRemote_service]
 
-    def horizontalChartAverage(self, years: list):
+    def horizontalChartAverage(self, years: list, number_of_language: int):
         """
         Построение горизонтальной гистаграммы, которая визуализирует средние оценки по
         категориям и среднюю оценку всех отзывов для всех отделений банков РФ.
@@ -113,6 +113,7 @@ class Diagrams:
         return:
         fig : plotly.graph_objects.Figure -- построенная диаграмма.
         """
+        categories_in_chart = categories if number_of_language == 0 else categories_en
         averageAll, \
         averageConvenience, \
         averageAtm, \
@@ -129,7 +130,7 @@ class Diagrams:
             averageProducts_services,
             averageRemote_service
         ],
-            y=categories,
+            y=categories_in_chart,
             labels={
                 'x': 'rate',
                 'y': 'categories'},
@@ -372,6 +373,7 @@ class Diagrams:
         else:
             string2 = f" AND id_bank={id_bank} "
         string3 = f" AND year >= {from_year} AND year <= {to_year} "
+        print(string + string2 + string3)
         convenience = len(cur.execute("SELECT rate FROM reviews WHERE c1=1 " + string + string2 + string3).fetchall())
         if convenience != 0:
             conveniencePositive = len(cur.execute("SELECT rate FROM reviews WHERE c1=1 " + string + string2 + string3 +
@@ -479,6 +481,8 @@ class Diagrams:
             bankName = "All banks"
         else:
             bankName = bankName if number_of_language == 0 else banks_en[banks.index(bankName) - 1]
+            print(bankName)
+            print('1111111')
         trace1 = {
             "name": LANGUAGES["tornado"][0][number_of_language],
             "type": "bar",

@@ -78,19 +78,19 @@ def diagram_average_for_country(number_of_language):
     """
     Построение диаграммы средних оценок для всех банков и всех регионов с выбором промежутка времени.
     """
-    st.title("Средняя оценка по всем банкам")
+    st.title(LANGUAGES["avg_for_country"][0][number_of_language])
     years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     col1, col2 = st.columns(2)
     with col1:
-        from_year = st.selectbox('Выберите год начала:', years, index=0)
+        from_year = st.selectbox(LANGUAGES["avg_for_country"][1][number_of_language], years, index=0)
     with col2:
-        to_year = st.selectbox('Выберите год окончания:', years, index=(len(years) - 1))
+        to_year = st.selectbox(LANGUAGES["avg_for_country"][2][number_of_language], years, index=(len(years) - 1))
 
     if from_year > to_year:
         st.write('Год начала не может быть меньше года конца')
     else:
         #print(from_years, to_years)
-        st.plotly_chart(d.horizontalChartAverage([from_year, to_year]), use_container_width=True)
+        st.plotly_chart(d.horizontalChartAverage([from_year, to_year], number_of_language), use_container_width=True)
 
 
 def diagram_average_for_regions_and_banks(number_of_language):
@@ -144,7 +144,7 @@ def diagram_average_for_regions_and_banks(number_of_language):
                 if number_of_language == 1:
                     if options[0] == "All banks":
                         selected_banks = ["Среднее по всем банкам"]
-                    if len(options) > 1:
+                    if len(options) >= 1:
                         for elem in options:
                             if elem != "All banks":
                                 selected_banks.append(banks[banks_en.index(elem) + 1])
@@ -159,7 +159,7 @@ def diagram_average_for_regions_and_banks(number_of_language):
                     selected_banks = options.copy()
                     selected_regions = region.copy()
 
-                #print(selected_banks, selected_regions)
+                print(selected_banks, selected_regions)
                 result = d.radarChart(selected_banks, selected_regions, [from_year_, to_year_], number_of_language)
                 if result:
                     result_diagram, has_zero = result
@@ -168,8 +168,7 @@ def diagram_average_for_regions_and_banks(number_of_language):
                     st.plotly_chart(result_diagram, use_container_width=True)
                     if has_zero:
                         st.write('*Нулевые значения означают отсутствие отзывов по данной категории/оси.*')
-                    st.subheader('Диаграмма сравнения процентного соотношения отзывов с положительной и '
-                                 'отрицательной оценками для каждого выбранного банка по категориям')
+                    st.subheader(LANGUAGES["average_rating"][18][number_of_language])
                     st.subheader(LANGUAGES["average_rating"][13][number_of_language])
                     st.subheader(LANGUAGES["average_rating"][14][number_of_language])
                     if(len(options)>1):
@@ -180,7 +179,7 @@ def diagram_average_for_regions_and_banks(number_of_language):
                                                       LANGUAGES["average_rating"][17][number_of_language])
 
                     columns = st.columns(len(selected_banks))
-                    print(selected_banks)
+                    #print(selected_banks)
                     list_categories = []
                     if(len(selected_banks)>1):
                                 # list_categories = d.tornadoChartBetweenBanks(options, region, [from_year_, to_year_])
@@ -192,8 +191,8 @@ def diagram_average_for_regions_and_banks(number_of_language):
                             chart = d.tornadoChartAverage(selected_banks[i], selected_regions, len(selected_banks), [from_year_, to_year_], number_of_language)
                             chart1 = d.tornadoChartInBank(selected_banks[i], selected_regions, len(selected_banks), [from_year_, to_year_], number_of_language)
                             if(len(selected_banks)>1):
-                                print("AAAAAAAAAA")
-                                print(options)
+                                #print("AAAAAAAAAA")
+                                #print(options)
                                 chart2 = d.tornadoChart(selected_banks[i], list_categories[i], len(selected_banks), number_of_language)
                             if(version_of_tornado == LANGUAGES["average_rating"][16][number_of_language][0]):
                                 st.plotly_chart(chart)
